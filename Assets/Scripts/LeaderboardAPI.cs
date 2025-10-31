@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Newtonsoft.Json;
 using TMPro;
@@ -17,18 +18,35 @@ public class LeaderboardEntry
 
 public class LeaderboardAPI : MonoBehaviour
 {
-    [SerializeField] private string baseUrl = "http://localhost:5115/api/Player";
+    [SerializeField] private string baseUrl = "http://localhost:5115/api/Player/";
     [SerializeField] private Transform leaderboardParent;
     [SerializeField] private TMP_Text entryPrefab;
+    [SerializeField] private TMP_InputField namaTxt;
+    [SerializeField] private TMP_InputField scoreTxt;
 
     void Start()
     {
         StartCoroutine(GetLeaderboard());
+        StartCoroutine(AutoRefreshLoop());
+    }
+
+    public void RefreshLeaderboard()
+    {
+        StartCoroutine(GetLeaderboard());
+    }
+
+    public IEnumerator AutoRefreshLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10f); // refresh tiap 10 detik
+            yield return GetLeaderboard();
+        }
     }
 
     public IEnumerator GetLeaderboard()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(baseUrl))
+        using (UnityWebRequest request = UnityWebRequest.Get(baseUrl + "/top"))
         {
             yield return request.SendWebRequest();
 
@@ -46,16 +64,38 @@ public class LeaderboardAPI : MonoBehaviour
         }
     }
 
+    public void SubmitNewScore()
+    {
+        if (int.TryParse(scoreTxt.text, out int score))
+        {
+            StartCoroutine(SubmitScore(namaTxt.text, score));
+        }
+        else
+        {
+            Debug.LogWarning($"Input skor tidak valid: '{scoreTxt.text}'");
+        }
+    }
+
     public IEnumerator SubmitScore(string playerName, int playerScore)
     {
         LeaderboardEntry entry = new LeaderboardEntry
         {
+            id = 0,
             playerName = playerName,
             uang = playerScore,
-            gameCount = 1
+            level = 1,
+            gameCount = 1,
+            createdAt = DateTime.UtcNow.ToString("o"),
+            updatedAt = DateTime.UtcNow.ToString("o")
         };
 
-        string json = JsonUtility.ToJson(entry);
+        string json = JsonConvert.SerializeObject(entry,
+        new JsonSerializerSettings
+        {
+            ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver(),
+            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc
+        });
 
         using (UnityWebRequest request = new UnityWebRequest(baseUrl, "POST"))
         {
