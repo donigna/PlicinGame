@@ -8,11 +8,10 @@ public class Login : MonoBehaviour
     public TMP_InputField _inputField;
     public Button loginBtn;
     public LeaderboardAPI leaderboardAPI;
-    [SerializeField] private string gameSceneName = "MainScene"; // <- atur nama scene target di Inspector
+    [SerializeField] private string gameSceneName = "MainScene";
 
     private void Awake()
     {
-        // Load saved username if available
         if (PlayerPrefs.HasKey("Username"))
         {
             string savedUsername = PlayerPrefs.GetString("Username");

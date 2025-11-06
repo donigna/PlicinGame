@@ -61,25 +61,36 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AppearSpeed: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _Density: 0.07
     - _DetailNormalMapScale: 1
+    - _DisappearSpeed: 0.55
     - _DstBlend: 0
+    - _Falloff: 2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 1
+    - _GridSize: 50
+    - _HaloSize: 1
+    - _Intensity: 1.23
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PixelDensity: 800
-    - _RotationSpeed: 0.2
+    - _PixelDensity: 416
+    - _RotationSpeed: 0.26
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SwirlStrength: 0.3
+    - _StarDensity: 0.008
+    - _StarRadius: 0.01
+    - _StarSize: 0.022
+    - _SwirlStrength: 0.27
     - _TimeScale: 0.5
+    - _TwinkleAmount: 0.39
+    - _TwinkleSpeed: 0.29
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -88,5 +99,6 @@ Material:
     - _MainColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
     - _Resolution: {r: 1920, g: 1080, b: 0, a: 0}
     - _SecondaryColor: {r: 0, g: 0, b: 0, a: 1}
+    - _StarColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
