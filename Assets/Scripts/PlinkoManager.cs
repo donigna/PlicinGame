@@ -89,17 +89,17 @@ public class PlinkoManager : MonoBehaviour
             PlinkoSlot ps = slotGO.GetComponent<PlinkoSlot>();
             if (i == 0 || i == lastRow.Count)
             {
-                ps.multiplier = 2.5f;
+                ps.multiplier = 5f;
                 ps.sprite.color = Color.red;
             }
             if (i == 1 || i == lastRow.Count - 1)
             {
-                ps.multiplier = 1.5f;
+                ps.multiplier = 2f;
                 ps.sprite.color = Color.yellow;
             }
             if (i == 2 || i == lastRow.Count - 2)
             {
-                ps.multiplier = 1f;
+                ps.multiplier = 1.5f;
                 ps.sprite.color = Color.green;
             }
             if (i == 3 || i == lastRow.Count - 3)
